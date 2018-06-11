@@ -1,0 +1,7 @@
+@charset "UTF-8";
+.box600 {
+	width: 600px;
+	border: 1px solid #cccccc;
+	padding: 30px;
+	margin: 0px auto;
+}
