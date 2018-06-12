@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="css/bootstrap.css" />
 <link rel="stylesheet" href="css/mystyle1.css" />
 <script>
-	function checkemail(){
-		if(email_select.value=='1'){
-			email_select.value='';
+	function checkemail() {
+		if (email_select.value == '1') {
+			email_select.value = '';
 			email.focus();
 		}
 	}
@@ -24,73 +24,85 @@
 		int b = (int) request.getAttribute("num");
 	%>
 	<jsp:include page="header.jsp"></jsp:include>
-
-	<div class="box600">
-		<h4><%= a %> <%= b %></h4>
-		<hr />
-		<div class="form-inline" style="margin-bottom: 5px">
-			<div style="width: 100px">
-				<label>아이디</label>
-			</div>
-			<div style="margin-right: 10px">
-				<input type="text" class="form-control" placeholder="아이디" />
-			</div>
-			<div style="margin-right: 10px">
-				<input type="button" class="btn btn-primary" value="중복확인" />
-			</div>
-		</div>
-		<div class="form-inline" style="margin-bottom: 5px">
-			<div style="width: 100px">
-				<label>암호</label>
-			</div>
-			<div style="margin-right: 10px">
-				<input type="password" class="form-control" placeholder="암호" />
-			</div>
-		</div>
-		<div class="form-inline" style="margin-bottom: 5px">
-			<div style="width: 100px">
-				<label>암호확인</label>
-			</div>
-			<div style="margin-right: 10px">
-				<input type="password" class="form-control" placeholder="암호확인" />
-			</div>
-		</div>
-		<div class="form-inline" style="margin-bottom: 5px">
-			<div style="width: 100px">
-				<label>이름</label>
-			</div>
-			<div style="margin-right: 10px">
-				<input type="text" class="form-control" placeholder="이름" />
-			</div>
-		</div>
-		<div class="form-inline" style="margin-bottom: 5px">
-			<div style="width: 100px">
-				<label>나이</label>
-			</div>
-			<div style="margin-right: 10px">
-				<input type="text" class="form-control" placeholder="나이" />
-			</div>
-		</div>
-		<div class="form-inline" style="margin-bottom: 5px">
-			<div style="width: 100px">
-				<label>이메일</label>
-			</div>
-			<div style="margin-right: 10px">
-				<input type="text" name = email id = email class="form-control" placeholder="이메일" />&nbsp&nbsp@&nbsp
-			</div>
-			<div style="margin-right: 10px">
-				<select name="email_select" class="form-inline" id="email_select" onChange="checkemail();">
-					<option value="gmail.com">gmail.com</option>
-					<option value="naver.com">naver.com</option>
-					<option value="1">직접입력</option>
-				</select>
-			</div>
+	<form action="join.do" method="post">
+		<div class="box600">
+			<h4><%=a%>
+				<%=b%></h4>
 			<hr />
+			<div class="form-inline" style="margin-bottom: 5px">
+				<div style="width: 100px">
+					<label>아이디</label>
+				</div>
+				<div style="margin-right: 10px">
+					<input type="text" name="id" class="form-control" placeholder="아이디" />
+				</div>
+				<div style="margin-right: 10px">
+					<input type="button" class="btn btn-primary" value="중복확인" />
+				</div>
+			</div>
+			<div class="form-inline" style="margin-bottom: 5px">
+				<div style="width: 100px">
+					<label>암호</label>
+				</div>
+				<div style="margin-right: 10px">
+					<input type="password" name="pw" class="form-control"
+						placeholder="암호" />
+				</div>
+			</div>
+			<div class="form-inline" style="margin-bottom: 5px">
+				<div style="width: 100px">
+					<label>암호확인</label>
+				</div>
+				<div style="margin-right: 10px">
+					<input type="password" name="pw" class="form-control"
+						placeholder="암호확인" />
+				</div>
+			</div>
+			<div class="form-inline" style="margin-bottom: 5px">
+				<div style="width: 100px">
+					<label>이름</label>
+				</div>
+				<div style="margin-right: 10px">
+					<input type="text" name="name" class="form-control"
+						placeholder="이름" />
+				</div>
+			</div>
+			<div class="form-inline" style="margin-bottom: 5px">
+				<div style="width: 100px">
+					<label>나이</label>
+				</div>
+				<div style="margin-right: 10px">
+					<input type="text" name="age" class="form-control" placeholder="나이" />
+				</div>
+			</div>
+			<div class="form-inline" style="margin-bottom: 5px">
+				<div style="width: 100px">
+					<label>이메일</label>
+				</div>
+				<div style="margin-right: 10px">
+					<input type="text" name=email id=email class="form-control"
+						placeholder="이메일" />
+				</div>
+				<div>@</div>
+				<div>
+					<select name="email_select" id="email_select" class="form-control"
+						onChange="checkemail();">
+						<option value="@gmail.com">gmail.com</option>
+						<option value="@naver.com">naver.com</option>
+						<option value="1">직접입력</option>
+					</select>
+				</div>
+				</div>
+				<hr />
 
-		</div>
-		<input type="button" class="btn btn-success" value="회원가입" />
+				<div align="right">
+					<input type="submit" class="btn btn-success" value="회원가입" />
+				</div>
+
+			</div>
+	</form>
 
 
-		<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
