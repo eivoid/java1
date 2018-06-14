@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -9,32 +11,36 @@
 <link rel="stylesheet" href="css/mystyle1.css" />
 </head>
 <body>
-	<%
-		String[] str = (String[]) request.getAttribute("str");
-		
-	%>
+	<%  String aaa=(String) request.getAttribute("aaa"); %>
+	<%= aaa %>
+	${aaa}
+	
 	<jsp:include page="header.jsp"></jsp:include>
 	
 	<div class="container">
+	${vo.brd_no }
+	${vo.brd_title }
+	${vo.brd_content }
+	
 		<table class="table">
 			<thead>
 				<tr>
-					<%for(String tmp:str){ %>
-					<th><%= tmp %></th>
-					<%} %>					
+					<c:forEach var="tmp" items="${str}" >
+					<th>${tmp}</th>
+					</c:forEach>					
 				</tr>
 
 			</thead>
 			<tbody>
-				<% for(int i=0;i<10;i++){ %>
+				<c:forEach var="vo" items="${list}">
 				<tr>
-					<td><%=i %></td>
-					<td>2</td>
-					<td>3</td>
-					<td>4</td>
-					<td>5</td>
+					<td>${vo.brd_no }</td>
+					<td>${vo.brd_title }</td>
+					<td>${vo.brd_writer }</td>
+					<td>${vo.brd_hit }</td>
+					<td>${vo.brd_date }</td>
 				</tr>
-				<%} %>
+				</c:forEach>
 			</tbody>
 		</table>
 		<a href="boardw.do" class="btn btn-success">글쓰기</a>

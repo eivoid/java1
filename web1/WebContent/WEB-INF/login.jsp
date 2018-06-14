@@ -20,7 +20,7 @@
 					<label>아이디</label>
 				</div>
 				<div style="margin-right: 10px">
-					<input type="text" name="id" class="form-control" placeholder="아이디" />
+					<input type="text" style="width:350px" name="id" class="form-control" placeholder="아이디" />
 				</div>
 
 			</div>
@@ -29,7 +29,7 @@
 					<label>암호</label>
 				</div>
 				<div style="margin-right: 10px">
-					<input type="password" name="pw" class="form-control"
+					<input type="password" style="width:350px" name="pw" class="form-control"
 						placeholder="암호" />
 				</div>
 			</div>
