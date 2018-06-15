@@ -43,6 +43,11 @@ public class V1_Member {
 	public void setMem_date(String mem_date) {
 		this.mem_date = mem_date;
 	}
+	@Override
+	public String toString() {
+		return "V1_Member [mem_id=" + mem_id + ", mem_pw=" + mem_pw + ", mem_name=" + mem_name + ", mem_age=" + mem_age
+				+ ", mem_email=" + mem_email + ", mem_date=" + mem_date + "]";
+	}
 	
 	
 }

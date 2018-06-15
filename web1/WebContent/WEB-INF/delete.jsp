@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="css/mystyle1.css" />
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<%-- <jsp:include page="header.jsp"></jsp:include> --%>
 	<form action="delete.do" method="post">
 		<div class="box600">
 		<div>

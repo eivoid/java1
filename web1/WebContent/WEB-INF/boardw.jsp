@@ -19,22 +19,24 @@
 
 </head>
 <body>
-	<div class="box600">
+	<form action="boardw.do" method="post">
+		<div class="box600">
 		<h4><%=title%></h4>
 		<div style="margin-bottom: 5px">
-			<input type="text" class="form-control" placeholder="제목" />
+			<input type="text" name="title" class="form-control" placeholder="제목" />
 		</div>
 		<div style="margin-bottom: 5px">
-			<div id="summernote"></div>
+			<textarea name="content" id="summernote"></textarea>
 		</div>
 		<div style="margin-bottom: 5px">
-			<input type="text" class="form-control" placeholder="작성자" />
+			<input type="text" name="writer" class="form-control" placeholder="작성자" />
 		</div>
 		<div style="margin-bottom: 5px">
 			<input type="submit" class="btn btn-primary" value="글쓰기" /> <a
 				href="board.do" class="btn btn-light">글목록</a>
 		</div>
 	</div>
+	</form>
 	<script>
 		$('#summernote').summernote({
 			placeholder : "hello-world",

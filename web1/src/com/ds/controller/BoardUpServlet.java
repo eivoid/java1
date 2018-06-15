@@ -1,7 +1,6 @@
 package com.ds.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,31 +8,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ds.model.TableDAO;
-import com.ds.model.TableDAO2;
-import com.ds.vo.V1_Member;
+import com.ds.model.BoardDAO;
 
-@WebServlet("/table.do")
-public class TableServlet extends HttpServlet {
+@WebServlet("/boardup.do")
+public class BoardUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public TableServlet() {
+    public BoardUpServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String[] str = {"아이디", "패스워드", "이름", "나이", "이메일", "날짜"};
-		request.setAttribute("str", str);
-		TableDAO2 tDAO = new TableDAO2();
-		List<V1_Member> list = tDAO.view();
-		request.setAttribute("list", list);
-		
-		
+		String no = request.getParameter("no");
 
-		request.getRequestDispatcher("/WEB-INF/table.jsp")
-		.forward(request, response);
-		
+		// 조회수를 1증가시키고no에 해당하는 게시물을 1개를 가져와서 표시
+		BoardDAO bDAO = new BoardDAO();
+		int ret = bDAO.updateBoardHit(Integer.parseInt(no));
+		response.sendRedirect("boardc.do?no="+no);
 	
 	}
 

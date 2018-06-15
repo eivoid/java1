@@ -1,5 +1,79 @@
 package com.ds.model;
 
-public class BoardDAO {
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.ds.vo.V1_Board;
+
+import oracle.jdbc.proxy.annotation.Pre;
+
+public class BoardDAO {
+	
+	public int updateBoardHit(int no) {
+		try {
+			//UPDATE 테이블명 set 바꿀필드명=바꿀값
+			String sql = "UPDATE V1_BOARD SET BRD_HIT=BRD_HIT+1"
+					+" WHERE BRD_NO = ?";
+			PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+			ps.setInt(1, no);
+			return ps.executeUpdate();
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
+	
+	//INSERT, UPDATE, DELETE => 리턴이 int
+	public int insertBoard(V1_Board vo) {
+		try {
+			//INSERT INTO 테이블명(필드명..) VALUES(넣을값..)
+			String sql = "INSERT INTO V1_BOARD(BRD_NO, BRD_TITLE, BRD_CONTENT, BRD_WRITER, BRD_HIT, BRD_DATE)"
+					+ " VALUES(SEQ_V1_BOARD_NO.NEXTVAL,?,?,?,1,SYSDATE)";
+			PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+			ps.setString(1, vo.getBrd_title());
+			ps.setString(2, vo.getBrd_content());
+			ps.setString(3, vo.getBrd_writer());
+			return ps.executeUpdate();
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+		
+	}
+	
+	public List<V1_Board> selectBoardList(){
+		try {
+			//DESC 내림차순, ASC 오름차순
+			String sql = "SELECT * FROM V1_BOARD ORDER BY BRD_NO DESC";
+			PreparedStatement ps
+				= OracleConnStatic.getConn().prepareStatement(sql);
+			ResultSet rs= ps.executeQuery();
+			//vo를 여러개 보관하기 위한 객체 생성
+			List<V1_Board> list =new ArrayList<V1_Board>(); //list를 한번더 list로 감싸서 여러개의 리스트를 보낼수도 있다.
+			while(rs.next()) {
+				V1_Board vo = new V1_Board();
+				vo.setBrd_no(rs.getInt("BRD_NO"));
+				vo.setBrd_title(rs.getString("BRD_TITLE"));
+				vo.setBrd_writer(rs.getString("BRD_WRITER"));
+				vo.setBrd_hit(rs.getInt("BRD_HIT"));
+				vo.setBrd_date(rs.getString("BRD_DATE"));
+				list.add(vo);//12
+			}
+			if(list.size()>0) {
+			return list;
+			}
+			return null;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 }

@@ -11,9 +11,6 @@
 <link rel="stylesheet" href="css/mystyle1.css" />
 </head>
 <body>
-	<%  String aaa=(String) request.getAttribute("aaa"); %>
-	<%= aaa %>
-	${aaa}
 	
 	<jsp:include page="header.jsp"></jsp:include>
 	
@@ -35,7 +32,7 @@
 				<c:forEach var="vo" items="${list}">
 				<tr>
 					<td>${vo.brd_no }</td>
-					<td>${vo.brd_title }</td>
+					<td><a href="boardup.do?no=${vo.brd_no }">${vo.brd_title }</a></td>
 					<td>${vo.brd_writer }</td>
 					<td>${vo.brd_hit }</td>
 					<td>${vo.brd_date }</td>
@@ -45,6 +42,6 @@
 		</table>
 		<a href="boardw.do" class="btn btn-success">글쓰기</a>
 	</div>
-
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

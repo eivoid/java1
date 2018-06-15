@@ -30,10 +30,10 @@ public class TableDAO {
 				vo[i].setMem_age(rs.getInt("MEM_AGE"));
 				//vo[i].setMem_date(rs.getDate("MEM_DATE"));
 				vo[i].setMem_email(rs.getString("MEM_EMAIL"));
-				return vo; 
+				
 			}
 			}
-			return null;
+			return vo;
 			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());

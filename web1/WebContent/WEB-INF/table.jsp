@@ -12,8 +12,6 @@
 <body>
 <%
 		String[] str = (String[]) request.getAttribute("str");
-		String[] vstr = (String[]) request.getAttribute("vstr");
-		String v1 = (String) request.getAttribute("v1");	
 				
 	
 	%>
@@ -29,14 +27,16 @@
 
 			</thead>
 			<tbody>
+				<c:forEach var="vo" items="${list}">
 				<tr>
-				<%for(String tmp:vstr){ %>
-					<td><%=vstr%></td>
-				<%} %>
+					<td>${vo.mem_id }</td>
+					<td>${vo.mem_pw }</td>
+					<td>${vo.mem_name }</td>
+					<td>${vo.mem_age }</td>
+					<td>${vo.mem_email }</td>
+					<td>${vo.mem_date }</td>
 				</tr>
-				<tr>
-				<td><%=v1 %></td>
-				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		
@@ -44,6 +44,6 @@
 
 
 </div>
-
+<jsp:include page="delete.jsp"></jsp:include>
 </body>
 </html>
