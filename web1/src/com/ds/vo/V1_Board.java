@@ -8,6 +8,14 @@ public class V1_Board {
 	private int brd_hit =1; //number
 	private byte[] brd_img=null; //blob :이미지, 비디오, 파일첨부
 	private String brd_date =null; //date
+	private String brd_file = null; //file명 보관
+	
+	public String getBrd_file() {
+		return brd_file;
+	}
+	public void setBrd_file(String brd_file) {
+		this.brd_file = brd_file;
+	}
 	public int getBrd_no() {
 		return brd_no;
 	}

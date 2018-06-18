@@ -27,6 +27,9 @@
       	<a class="nav-link" href="board.do">게시판</a>
       </li>
       <li class="nav-item">
+      	<a class="nav-link" href="join.do">회원 가입</a>
+      </li>
+      <li class="nav-item">
       	<a class="nav-link" href="table.do">회원 보기</a>
       </li>
     </ul>

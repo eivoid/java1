@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<form action="boardw.do" method="post">
+	<form action="boardw.do" method="post" enctype="multipart/form-data">
 		<div class="box600">
 		<h4><%=title%></h4>
 		<div style="margin-bottom: 5px">
@@ -30,6 +30,9 @@
 		</div>
 		<div style="margin-bottom: 5px">
 			<input type="text" name="writer" class="form-control" placeholder="작성자" />
+		</div>
+		<div style="margin-bottom: 5px">
+			<input type="file" name="img" class="form-control" />
 		</div>
 		<div style="margin-bottom: 5px">
 			<input type="submit" class="btn btn-primary" value="글쓰기" /> <a

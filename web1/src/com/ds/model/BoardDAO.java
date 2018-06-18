@@ -8,8 +8,75 @@ import java.util.List;
 import com.ds.vo.V1_Board;
 
 import oracle.jdbc.proxy.annotation.Pre;
+import oracle.net.aso.e;
 
 public class BoardDAO {
+	public int nextBoardNo(int no) {
+		try {
+			//NVL : 만약에 결과값이 있다면 앞쪽을 수행, 없으면 뒤쪽 수행 1번글의 경우를 대비하는것
+			String sql = "SELECT NVL(MIN(BRD_NO), 0) BNO FROM V1_BOARD WHERE BRD_NO> ?"; 
+			PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+			ps.setInt(1, no);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("BNO");
+			}
+			return 0;
+			
+		}
+	catch(Exception e) {
+		System.out.println(e.getMessage());
+		return 0;
+	}
+}
+	
+	public int prevBoardNo(int no) {
+			try {
+				//NVL : 만약에 결과값이 있다면 앞쪽을 수행, 없으면 뒤쪽 수행 1번글의 경우를 대비하는것
+				String sql = "SELECT NVL(MAX(BRD_NO), 0) BNO FROM V1_BOARD WHERE BRD_NO< ?"; 
+				PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+				ps.setInt(1, no);
+				
+				ResultSet rs = ps.executeQuery();
+				if(rs.next()) {
+					return rs.getInt("BNO");
+				}
+				return 0;
+				
+			}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
+	public V1_Board selectBoardOne(int no) {
+		try {
+			String sql = "SELECT * FROM V1_BOARD WHERE BRD_NO=?";
+			PreparedStatement pstmt = OracleConnStatic.getConn().prepareStatement(sql);
+			pstmt.setInt(1, no);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {//게시물이 없다면
+				V1_Board vo = new V1_Board();
+				vo.setBrd_no(rs.getInt("BRD_NO"));
+				vo.setBrd_title(rs.getString("BRD_TITLE"));
+				vo.setBrd_content(rs.getString("BRD_CONTENT"));
+				vo.setBrd_writer(rs.getString("BRD_WRITER"));
+				vo.setBrd_hit(rs.getInt("BRD_HIT"));
+				vo.setBrd_file(rs.getString("BRD_FILE"));
+				vo.setBrd_date(rs.getString("BRD_DATE"));
+				return vo;
+				
+			}
+			return null;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	
 	public int updateBoardHit(int no) {
 		try {
@@ -32,12 +99,14 @@ public class BoardDAO {
 	public int insertBoard(V1_Board vo) {
 		try {
 			//INSERT INTO 테이블명(필드명..) VALUES(넣을값..)
-			String sql = "INSERT INTO V1_BOARD(BRD_NO, BRD_TITLE, BRD_CONTENT, BRD_WRITER, BRD_HIT, BRD_DATE)"
-					+ " VALUES(SEQ_V1_BOARD_NO.NEXTVAL,?,?,?,1,SYSDATE)";
+			String sql = "INSERT INTO V1_BOARD(BRD_NO, BRD_TITLE, BRD_CONTENT, BRD_WRITER, BRD_HIT, BRD_DATE, BRD_FILE)"
+					+ " VALUES(SEQ_V1_BOARD_NO.NEXTVAL,?,?,?,1,SYSDATE,?)";
 			PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
 			ps.setString(1, vo.getBrd_title());
 			ps.setString(2, vo.getBrd_content());
 			ps.setString(3, vo.getBrd_writer());
+			ps.setString(4, vo.getBrd_file());
+			
 			return ps.executeUpdate();
 			
 		}
@@ -64,6 +133,7 @@ public class BoardDAO {
 				vo.setBrd_writer(rs.getString("BRD_WRITER"));
 				vo.setBrd_hit(rs.getInt("BRD_HIT"));
 				vo.setBrd_date(rs.getString("BRD_DATE"));
+				vo.setBrd_file(rs.getString("BRD_FILE"));
 				list.add(vo);//12
 			}
 			if(list.size()>0) {
