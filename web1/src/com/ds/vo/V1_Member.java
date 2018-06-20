@@ -7,6 +7,7 @@ public class V1_Member {
 	private int mem_age = 0; //number
 	private String mem_email = null;//varchar2
 	private String mem_date = null;//date
+	
 	public String getMem_id() {
 		return mem_id;
 	}

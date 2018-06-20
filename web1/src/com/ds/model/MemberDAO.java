@@ -6,6 +6,26 @@ import java.sql.ResultSet;
 import com.ds.vo.V1_Member;
 
 public class MemberDAO {
+	
+	public int memberIDCheck(String id) {
+		try {
+			//SELECT count(*) cnt FROM
+			String sql = "SELECT COUNT(*) CNT FROM V1_MEMBER"
+					+ " WHERE MEM_ID=?";
+			PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+			 ps.setString(1, id);
+			 ResultSet rs = ps.executeQuery();
+			 if(rs.next()) {
+				 return rs.getInt("CNT");//존재유무 0, 1
+			 }
+			 return -1; //-1: SQL실패
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return -1; //DB접속오류
+		}
+	}
+	
 	public V1_Member memberLogin(String id, String pw) {
 		try {
 			//SELECT * FROM 테이블명 WHERE 조건

@@ -34,10 +34,10 @@
 					<label>아이디</label>
 				</div>
 				<div style="margin-right: 10px">
-					<input type="text" name="id" class="form-control" placeholder="아이디" />
+					<input type="text" id="id" name="id" class="form-control" placeholder="아이디" />
 				</div>
 				<div style="margin-right: 10px">
-					<input type="button" class="btn btn-primary" value="중복확인" />
+					<input type="button" id="btn-idcheck" class="btn btn-primary" value="중복확인" />
 				</div>
 			</div>
 			<div class="form-inline" style="margin-bottom: 5px">
@@ -101,6 +101,39 @@
 
 			</div>
 	</form>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	
+	<script>
+		$(function(){
+			$('#id').keyup(function(){
+				var a = $('#id').val();
+				//console.log(a);
+				if(a.length > 0){
+				//doGet을 호출{"ret":"y"}
+				$.get('ajaxidcheck.do?id='+a,function(data){
+					if(data.ret == 'y'){
+						$('#btn-idcheck').val('사용가능');
+						$('#btn-idcheck').attr('class','btn btn-success');
+					}
+					else if(data.ret == 'n'){
+						$('#btn-idcheck').val('사용불가');
+						$('#btn-idcheck').attr('class','btn btn-warning');
+					}
+					console.log(data);
+				}, 'json');
+				}
+				else {
+					$('#btn-idcheck').val('중복확인');
+					$('#btn-idcheck').attr('class','btn btn-primary');
+				}
+				
+				//doPost를 호출
+				/* $.post('서버주소','전달할값', function(data){
+					
+				}, 'json'); */
+			});
+		});
+	</script>
 
 
 	<jsp:include page="footer.jsp"></jsp:include>
