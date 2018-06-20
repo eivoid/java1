@@ -65,9 +65,44 @@
 		<c:if test = "${nno ==0 }">
 		<button class="btn btn-success" disabled>다음글</button>
 		</c:if>
-		<a href="board.do" class="btn btn-success">글수정</a>
-		<a href="board.do" class="btn btn-success">글삭제</a>
+		<a href="#" class="btn btn-success">글수정</a>
+		<a href="#" id="btn-delete" class="btn btn-success">글삭제</a>
 	</div>
 <jsp:include page="footer.jsp"></jsp:include>
+
+	<form action="boardd.do" method="get">
+	<div class="modal fade" id="deleteModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">삭제</h5>
+					<button type="button" class="close"
+					data-dismiss="modal" aria-lebel="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" name="no" value="${vo.brd_no }" />
+					<label>삭제하시겠습니까</label>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-success" value="삭제" />
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+	
+	<script src="js/jquery-3.2.1.slim.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script>
+		$(function(){
+			$('#btn-delete').click(function(){
+				$('#deleteModal').modal('show');
+			})
+		});
+	</script>
 </body>
 </html>

@@ -38,13 +38,13 @@
 			<artifactId>cos</artifactId>
 			<version>05Nov2002</version>
 		</dependency>
-		<!--오라클 -->
+	
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.3</version>
 		</dependency>
-		<!--jstl -->
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>

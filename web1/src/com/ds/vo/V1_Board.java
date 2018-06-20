@@ -6,10 +6,19 @@ public class V1_Board {
 	private String brd_content =null; //clob
 	private String brd_writer =null;//varchar2
 	private int brd_hit =1; //number
+	private String brd_hit1 = null; //TO_CHAR 을 사용.
 	private byte[] brd_img=null; //blob :이미지, 비디오, 파일첨부
 	private String brd_date =null; //date
 	private String brd_file = null; //file명 보관
 	
+	
+	
+	public String getBrd_hit1() {
+		return brd_hit1;
+	}
+	public void setBrd_hit1(String brd_hit1) {
+		this.brd_hit1 = brd_hit1;
+	}
 	public String getBrd_file() {
 		return brd_file;
 	}

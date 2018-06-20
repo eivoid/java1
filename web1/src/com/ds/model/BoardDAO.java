@@ -7,9 +7,6 @@ import java.util.List;
 
 import com.ds.vo.V1_Board;
 
-import oracle.jdbc.proxy.annotation.Pre;
-import oracle.net.aso.e;
-
 public class BoardDAO {
 	public int nextBoardNo(int no) {
 		try {
@@ -146,4 +143,76 @@ public class BoardDAO {
 			return null;
 		}
 	}
+	public List<V1_Board> selectBoardList1(int start){
+		try {
+			//DESC 내림차순, ASC 오름차순
+			String sql = "SELECT * FROM " 
+			+" (SELECT BRD_NO, BRD_TITLE, BRD_WRITER," 
+			+"	TO_CHAR(BRD_HIT, '999,999,999,999') BRD_HIT1, BRD_FILE, "
+			+" TO_CHAR(BRD_DATE, 'YYYY-MM-DD') BRD_DATE, "
+			+"	ROW_NUMBER() OVER (ORDER BY BRD_NO DESC) ROWN"
+			+"	FROM V1_BOARD)"
+			+" WHERE ROWN BETWEEN ? AND ?";
+			PreparedStatement ps
+				= OracleConnStatic.getConn().prepareStatement(sql);
+			ps.setInt(1, start); //1
+			ps.setInt(2, start+9); //10
+			
+			ResultSet rs= ps.executeQuery();
+			//vo를 여러개 보관하기 위한 객체 생성
+			List<V1_Board> list =new ArrayList<V1_Board>(); //list를 한번더 list로 감싸서 여러개의 리스트를 보낼수도 있다.
+			while(rs.next()) {
+				V1_Board vo = new V1_Board();
+				vo.setBrd_no(rs.getInt("BRD_NO"));
+				vo.setBrd_title(rs.getString("BRD_TITLE"));
+				vo.setBrd_writer(rs.getString("BRD_WRITER"));
+				vo.setBrd_hit1(rs.getString("BRD_HIT1"));
+				vo.setBrd_date(rs.getString("BRD_DATE"));
+				vo.setBrd_file(rs.getString("BRD_FILE"));
+				list.add(vo);//12
+			}
+			if(list.size()>0) {
+			return list;
+			}
+			return null;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public int selectBoardCount() {
+		try {
+			String sql = "SELECT COUNT(*) CNT FROM V1_BOARD";
+			PreparedStatement ps
+				= OracleConnStatic.getConn().prepareStatement(sql);
+			ResultSet rs= ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("CNT");
+			}
+			return 0;
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
+	public int boardDelete(int no) {
+		try {
+			String sql = "DELETE FROM V1_BOARD WHERE BRD_NO=?";
+			PreparedStatement ps
+				= OracleConnStatic.getConn().prepareStatement(sql);
+			ps.setInt(1, no);
+			//INSERT, UPDATE, DELETE
+			return ps.executeUpdate();
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
+	
 }
