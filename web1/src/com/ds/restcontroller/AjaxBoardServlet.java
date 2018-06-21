@@ -37,7 +37,7 @@ public class AjaxBoardServlet extends HttpServlet {
 			jobj.put("brd_title", vo.getBrd_title());
 			jobj.put("brd_content", vo.getBrd_content());
 			jobj.put("brd_writer", vo.getBrd_writer());
-			jobj.put("brd_hit1", vo.getBrd_hit1());
+			jobj.put("brd_hit", vo.getBrd_hit());
 			jobj.put("brd_file", vo.getBrd_file());
 			jobj.put("brd_date", vo.getBrd_date());
 			

@@ -53,6 +53,7 @@ public class BoardWServlet extends HttpServlet {
 		System.out.println(t);
 		System.out.println(c);
 		System.out.println(w);
+		System.out.println(multi.getFilesystemName("img"));
 		//vo 생성
 		V1_Board vo = new V1_Board();
 		vo.setBrd_content(c);

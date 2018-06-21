@@ -8,6 +8,48 @@ import java.util.List;
 import com.ds.vo.V1_Board;
 
 public class BoardDAO {
+	
+	public int updateBoardOne(V1_Board vo) {
+		try {
+			String sql = null;
+			if(vo.getBrd_file()!=null) {
+			sql = "UPDATE V1_BOARD "
+					+" SET BRD_TITLE=?,"
+					+" BRD_CONTENT=?,"
+					+" BRD_WRITER=?,"
+					+" BRD_FILE=? "
+					+" WHERE BRD_NO=?";
+			PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+			ps.setString(1, vo.getBrd_title());
+			ps.setString(2, vo.getBrd_content());
+			ps.setString(3, vo.getBrd_writer());
+			ps.setString(4, vo.getBrd_file());
+			ps.setInt(5, vo.getBrd_no());
+			return ps.executeUpdate();
+			}
+			else {
+				sql = "UPDATE V1_BOARD"
+						+" SET BRD_TITLE=?,"
+						+" BRD_CONTENT=?,"
+						+" BRD_WRITER=?,"
+						+" WHERE BRD_NO=?";
+				PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+				ps.setString(1, vo.getBrd_title());
+				ps.setString(2, vo.getBrd_content());
+				ps.setString(3, vo.getBrd_writer());
+				ps.setInt(4, vo.getBrd_no());
+				return ps.executeUpdate();
+			}
+					
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return 0;
+		}
+		
+	}
+	
 	public int nextBoardNo(int no) {
 		try {
 			//NVL : 만약에 결과값이 있다면 앞쪽을 수행, 없으면 뒤쪽 수행 1번글의 경우를 대비하는것

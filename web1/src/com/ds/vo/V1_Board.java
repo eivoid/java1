@@ -13,6 +13,22 @@ public class V1_Board {
 	
 	
 	
+	public V1_Board(int brd_no, String brd_title, String brd_content, String brd_writer, String brd_file) {
+		super();
+		this.brd_no = brd_no;
+		this.brd_title = brd_title;
+		this.brd_content = brd_content;
+		this.brd_writer = brd_writer;
+		this.brd_file = brd_file;
+	}
+	// source => generate constructor using field
+	//일부분만으로 생성자를 만들면 반드시 아무것도 선택하지 않은 생성자도 같이 만들어주어야 한다.
+	
+	public V1_Board() {
+		super();
+	}
+
+
 	public String getBrd_hit1() {
 		return brd_hit1;
 	}
