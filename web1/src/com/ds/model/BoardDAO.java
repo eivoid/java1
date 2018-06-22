@@ -224,6 +224,49 @@ public class BoardDAO {
 		}
 	}
 	
+	public List<V1_Board> selectBoardList2(int start, String type, String text){
+		try {
+			String sql = "SELECT * FROM ("
+					+ " SELECT BRD_NO, BRD_FILE, BRD_TITLE, BRD_WRITER, "
+					+ " TO_CHAR(BRD_HIT, '999,999,999,999') BRD_HIT1,"
+					+ " TO_CHAR(BRD_DATE, 'YYYY-MM-DD') BRD_DATE, "
+					+ " ROW_NUMBER() OVER (ORDER BY BRD_NO DESC) ROWN "
+					+ " FROM V1_BOARD"
+					+ " WHERE "+ type +" LIKE '%' || ? || '%'"
+					+ " ) "
+					+ " WHERE ROWN  BETWEEN ? AND ? ";
+				PreparedStatement ps = OracleConnStatic.getConn().prepareStatement(sql);
+				//ps.setString(1, type);
+				ps.setString(1, text);
+				ps.setInt(2, start);
+				ps.setInt(3, start+9);
+
+					
+					ResultSet rs= ps.executeQuery();
+					//vo를 여러개 보관하기 위한 객체 생성
+					List<V1_Board> list =new ArrayList<V1_Board>(); //list를 한번더 list로 감싸서 여러개의 리스트를 보낼수도 있다.
+					while(rs.next()) {
+						V1_Board vo = new V1_Board();
+						vo.setBrd_no(rs.getInt("BRD_NO"));
+						vo.setBrd_title(rs.getString("BRD_TITLE"));
+						vo.setBrd_writer(rs.getString("BRD_WRITER"));
+						vo.setBrd_hit1(rs.getString("BRD_HIT1"));
+						vo.setBrd_date(rs.getString("BRD_DATE"));
+						vo.setBrd_file(rs.getString("BRD_FILE"));
+						list.add(vo);//12
+					}
+					if(list.size()>0) {
+					return list;
+					}
+					return null;
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 	public int selectBoardCount() {
 		try {
 			String sql = "SELECT COUNT(*) CNT FROM V1_BOARD";

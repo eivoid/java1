@@ -29,6 +29,9 @@ public class BoardServlet extends HttpServlet {
 			if(page ==null) {
 				page ="1"; //page = 1
 			}
+			
+			String type = request.getParameter("type");
+			String text = request.getParameter("text");
 
 			String[] str = { "글번호", "제목", "작성자", "조회수", "날짜" };
 			// C -> V 로 값전달
@@ -42,7 +45,9 @@ public class BoardServlet extends HttpServlet {
 			//3 -> 21 and 30
 			//(Integer.parseInt(page)-1)*10 +1
 			BoardDAO bDAO = new BoardDAO();
-			List<V1_Board> list = bDAO.selectBoardList1((Integer.parseInt(page)-1)*10 +1);
+			//List<V1_Board> list = bDAO.selectBoardList1((Integer.parseInt(page)-1)*10 +1);
+			
+			List<V1_Board> list = bDAO.selectBoardList2((Integer.parseInt(page)-1)*10 +1, type, text);
 			request.setAttribute("list", list);
 
 			// 전체 게시물 수

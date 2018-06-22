@@ -13,19 +13,20 @@
 			<label>아이디</label>
 		</div>
 		<div style="margin-right: 10px">
-			<input type="text" name="id" class="form-control" placeholder="아이디" />
+			<input type="text" id="id" class="form-control" placeholder="아이디" />
 		</div>
 		<div style="margin-right: 10px">
 			<input type="button" class="btn btn-primary" value="중복확인" />
 		</div>
 	</div>
 
-	<script src="js/jquery-3.2.1.slim.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
 	<script>
 		$(function() {
-			$("#id").keyup(function() {
-				var a = $("#id").val();
-				console.log(a);
+			$("#id").keyup(function(event) {
+				if(event.which == 13)
+					alert('엔터')
+				
 			})
 		});
 		/* $(document).ready(function(){
